@@ -2,8 +2,10 @@ package com.binance.api.client.impl;
 
 import com.binance.api.client.BinanceApiSwapRestClient;
 import com.binance.api.client.constant.BinanceApiConstants;
+import com.binance.api.client.domain.RemoveType;
 import com.binance.api.client.domain.account.Liquidity;
 import com.binance.api.client.domain.account.Pool;
+import com.binance.api.client.domain.account.LiquidityOperationRecord;
 
 import java.util.List;
 
@@ -36,5 +38,26 @@ public class BinanceApiSwapRestClientImpl implements BinanceApiSwapRestClient {
             return liquidities.get(0);
         }
         return null;
+    }
+
+    @Override
+    public LiquidityOperationRecord addLiquidity(String poolId, String asset, String quantity) {
+        long timestamp = System.currentTimeMillis();
+        return executeSync(binanceApiService.addLiquidity(poolId,
+                asset,
+                quantity,
+                BinanceApiConstants.DEFAULT_RECEIVING_WINDOW,
+                timestamp));
+    }
+
+    @Override
+    public LiquidityOperationRecord removeLiquidity(String poolId, RemoveType type, List<String> asset, String shareAmount) {
+        long timestamp = System.currentTimeMillis();
+        return executeSync(binanceApiService.removeLiquidity(poolId,
+                type,
+                asset,
+                shareAmount,
+                BinanceApiConstants.DEFAULT_RECEIVING_WINDOW,
+                timestamp));
     }
 }

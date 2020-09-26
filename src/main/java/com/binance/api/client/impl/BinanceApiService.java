@@ -3,6 +3,7 @@ package com.binance.api.client.impl;
 import com.binance.api.client.constant.BinanceApiConstants;
 import com.binance.api.client.domain.OrderSide;
 import com.binance.api.client.domain.OrderType;
+import com.binance.api.client.domain.RemoveType;
 import com.binance.api.client.domain.TimeInForce;
 import com.binance.api.client.domain.account.*;
 import com.binance.api.client.domain.account.request.CancelOrderResponse;
@@ -248,4 +249,23 @@ public interface BinanceApiService {
   Call<List<Liquidity>> getPoolLiquidityInfo(@Query("poolId") String poolId,
                                         @Query("recvWindow") Long recvWindow,
                                         @Query("timestamp") Long timestamp);
+
+  @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
+  @POST("/sapi/v1/bswap/liquidityAdd")
+  Call<LiquidityOperationRecord> addLiquidity(@Query("poolId") String poolId,
+                                              @Query("asset") String asset,
+                                              @Query("quantity") String quantity,
+                                              @Query("recvWindow") Long recvWindow,
+                                              @Query("timestamp") Long timestamp);
+
+  @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
+  @POST("/sapi/v1/bswap/liquidityRemove")
+  Call<LiquidityOperationRecord> removeLiquidity(@Query("poolId") String poolId,
+                                                 @Query("type") RemoveType type,
+                                                 @Query("asset") List<String> asset,
+                                                 @Query("shareAmount") String shareAmount,
+                                                 @Query("recvWindow") Long recvWindow,
+                                                 @Query("timestamp") Long timestamp);
+
+
 }
