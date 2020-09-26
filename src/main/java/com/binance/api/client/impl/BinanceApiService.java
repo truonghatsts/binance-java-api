@@ -243,9 +243,9 @@ public interface BinanceApiService {
   @GET("/sapi/v1/bswap/pools")
   Call<List<Pool>> listAllSwapPools();
 
-  @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
+  @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
   @GET("/sapi/v1/bswap/liquidity")
-  Call<Liquidity> getPoolLiquidityInfo(@Query("poolId") String poolId,
+  Call<List<Liquidity>> getPoolLiquidityInfo(@Query("poolId") String poolId,
                                         @Query("recvWindow") Long recvWindow,
                                         @Query("timestamp") Long timestamp);
 }

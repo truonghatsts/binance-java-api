@@ -81,6 +81,15 @@ public class Liquidity {
         public void setAsset(Map<String, String> asset) {
             this.asset = asset;
         }
+
+        @Override
+        public String toString() {
+            return "Share{" +
+                    "shareAmount=" + shareAmount +
+                    ", sharePercentage=" + sharePercentage +
+                    ", asset=" + asset +
+                    '}';
+        }
     }
 
     @Override

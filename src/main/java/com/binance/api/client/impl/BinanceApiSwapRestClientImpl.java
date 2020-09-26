@@ -15,22 +15,26 @@ import static com.binance.api.client.impl.BinanceApiServiceGenerator.executeSync
  */
 public class BinanceApiSwapRestClientImpl implements BinanceApiSwapRestClient {
 
-  private final BinanceApiService binanceApiService;
+    private final BinanceApiService binanceApiService;
 
-  public BinanceApiSwapRestClientImpl(String apiKey, String secret) {
-    binanceApiService = createService(BinanceApiService.class, apiKey, secret);
-  }
+    public BinanceApiSwapRestClientImpl(String apiKey, String secret) {
+        binanceApiService = createService(BinanceApiService.class, apiKey, secret);
+    }
 
-  @Override
-  public List<Pool> listAllSwapPools() {
-    return executeSync(binanceApiService.listAllSwapPools());
-  }
+    @Override
+    public List<Pool> listAllSwapPools() {
+        return executeSync(binanceApiService.listAllSwapPools());
+    }
 
-  @Override
-  public Liquidity getPoolLiquidityInfo(String poolId) {
-    long timestamp = System.currentTimeMillis();
-    return executeSync(binanceApiService.getPoolLiquidityInfo(poolId,
-            BinanceApiConstants.DEFAULT_RECEIVING_WINDOW,
-            timestamp));
-  }
+    @Override
+    public Liquidity getPoolLiquidityInfo(String poolId) {
+        long timestamp = System.currentTimeMillis();
+        List<Liquidity> liquidities = executeSync(binanceApiService.getPoolLiquidityInfo(poolId,
+                BinanceApiConstants.DEFAULT_RECEIVING_WINDOW,
+                timestamp));
+        if (liquidities != null && !liquidities.isEmpty()) {
+            return liquidities.get(0);
+        }
+        return null;
+    }
 }
