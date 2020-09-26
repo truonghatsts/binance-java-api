@@ -238,4 +238,14 @@ public interface BinanceApiService {
   @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
   @PUT("/sapi/v1/userDataStream")
   Call<Void> keepAliveMarginUserDataStream(@Query("listenKey") String listenKey);
+
+  @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
+  @GET("/sapi/v1/bswap/pools")
+  Call<List<Pool>> listAllSwapPools();
+
+  @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
+  @GET("/sapi/v1/bswap/liquidity")
+  Call<Liquidity> getPoolLiquidityInfo(@Query("poolId") String poolId,
+                                        @Query("recvWindow") Long recvWindow,
+                                        @Query("timestamp") Long timestamp);
 }
