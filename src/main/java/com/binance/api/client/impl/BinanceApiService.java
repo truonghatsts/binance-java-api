@@ -3,7 +3,7 @@ package com.binance.api.client.impl;
 import com.binance.api.client.constant.BinanceApiConstants;
 import com.binance.api.client.domain.OrderSide;
 import com.binance.api.client.domain.OrderType;
-import com.binance.api.client.domain.RemoveType;
+import com.binance.api.client.domain.SwapRemoveType;
 import com.binance.api.client.domain.TimeInForce;
 import com.binance.api.client.domain.account.*;
 import com.binance.api.client.domain.account.request.CancelOrderResponse;
@@ -263,11 +263,26 @@ public interface BinanceApiService {
     @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
     @POST("/sapi/v1/bswap/liquidityRemove")
     Call<LiquidityOperationRecord> removeLiquidity(@Query("poolId") String poolId,
-                                                   @Query("type") RemoveType type,
+                                                   @Query("type") SwapRemoveType type,
                                                    @Query("asset") List<String> asset,
                                                    @Query("shareAmount") String shareAmount,
                                                    @Query("recvWindow") Long recvWindow,
                                                    @Query("timestamp") Long timestamp);
+
+    @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
+    @GET("/sapi/v1/bswap/liquidityOps")
+    Call<List<LiquidityOperationRecord>> getPoolLiquidityOperationRecords(
+            @Query("poolId") String poolId,
+            @Query("limit") Integer limit,
+            @Query("recvWindow") Long recvWindow,
+            @Query("timestamp") Long timestamp);
+
+    @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
+    @GET("/sapi/v1/bswap/liquidityOps")
+    Call<List<LiquidityOperationRecord>> getLiquidityOperationRecord(
+            @Query("operationId") String operationId,
+            @Query("recvWindow") Long recvWindow,
+            @Query("timestamp") Long timestamp);
 
     @Headers({BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER, BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER})
     @GET("/sapi/v1/bswap/quote")

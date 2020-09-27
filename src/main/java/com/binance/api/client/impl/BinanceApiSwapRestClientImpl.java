@@ -2,7 +2,7 @@ package com.binance.api.client.impl;
 
 import com.binance.api.client.BinanceApiSwapRestClient;
 import com.binance.api.client.constant.BinanceApiConstants;
-import com.binance.api.client.domain.RemoveType;
+import com.binance.api.client.domain.SwapRemoveType;
 import com.binance.api.client.domain.account.*;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class BinanceApiSwapRestClientImpl implements BinanceApiSwapRestClient {
     }
 
     @Override
-    public LiquidityOperationRecord removeLiquidity(String poolId, RemoveType type, List<String> asset, String shareAmount) {
+    public LiquidityOperationRecord removeLiquidity(String poolId, SwapRemoveType type, List<String> asset, String shareAmount) {
         long timestamp = System.currentTimeMillis();
         return executeSync(binanceApiService.removeLiquidity(poolId,
                 type,
@@ -57,6 +57,30 @@ public class BinanceApiSwapRestClientImpl implements BinanceApiSwapRestClient {
                 shareAmount,
                 BinanceApiConstants.DEFAULT_RECEIVING_WINDOW,
                 timestamp));
+    }
+
+    @Override
+    public List<LiquidityOperationRecord> getPoolLiquidityOperationRecords(String poolId, Integer limit) {
+        long timestamp = System.currentTimeMillis();
+        return executeSync(binanceApiService.getPoolLiquidityOperationRecords(
+                poolId,
+                limit,
+                BinanceApiConstants.DEFAULT_RECEIVING_WINDOW,
+                timestamp));
+
+    }
+
+    @Override
+    public LiquidityOperationRecord getLiquidityOperationRecord(String operationId) {
+        long timestamp = System.currentTimeMillis();
+        List<LiquidityOperationRecord> records = executeSync(binanceApiService.getLiquidityOperationRecord(
+                operationId,
+                BinanceApiConstants.DEFAULT_RECEIVING_WINDOW,
+                timestamp));
+        if (records != null && !records.isEmpty()) {
+            return records.get(0);
+        }
+        return null;
     }
 
     @Override

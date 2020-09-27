@@ -1,8 +1,64 @@
 package com.binance.api.client.domain.account;
 
+import com.binance.api.client.domain.SwapOperationType;
+
 public class LiquidityOperationRecord {
 
+    private String poolId;
     private String operationId;
+    private String updateTime;
+    private String operation;
+    private String shareAmount;
+    private String poolName;
+    private SwapOperationType status;
+
+    public String getPoolId() {
+        return poolId;
+    }
+
+    public void setPoolId(String poolId) {
+        this.poolId = poolId;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
+    }
+
+    public String getShareAmount() {
+        return shareAmount;
+    }
+
+    public void setShareAmount(String shareAmount) {
+        this.shareAmount = shareAmount;
+    }
+
+    public String getPoolName() {
+        return poolName;
+    }
+
+    public void setPoolName(String poolName) {
+        this.poolName = poolName;
+    }
+
+    public SwapOperationType getStatus() {
+        return status;
+    }
+
+    public void setStatus(SwapOperationType status) {
+        this.status = status;
+    }
 
     public String getOperationId() {
         return operationId;
@@ -15,7 +71,13 @@ public class LiquidityOperationRecord {
     @Override
     public String toString() {
         return "LiquidityOperationRecord{" +
-                "operationId='" + operationId + '\'' +
+                "poolId='" + poolId + '\'' +
+                ", operationId='" + operationId + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", operation='" + operation + '\'' +
+                ", shareAmount='" + shareAmount + '\'' +
+                ", poolName='" + poolName + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
