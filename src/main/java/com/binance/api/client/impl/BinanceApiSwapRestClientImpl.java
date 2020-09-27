@@ -3,9 +3,7 @@ package com.binance.api.client.impl;
 import com.binance.api.client.BinanceApiSwapRestClient;
 import com.binance.api.client.constant.BinanceApiConstants;
 import com.binance.api.client.domain.RemoveType;
-import com.binance.api.client.domain.account.Liquidity;
-import com.binance.api.client.domain.account.Pool;
-import com.binance.api.client.domain.account.LiquidityOperationRecord;
+import com.binance.api.client.domain.account.*;
 
 import java.util.List;
 
@@ -59,5 +57,35 @@ public class BinanceApiSwapRestClientImpl implements BinanceApiSwapRestClient {
                 shareAmount,
                 BinanceApiConstants.DEFAULT_RECEIVING_WINDOW,
                 timestamp));
+    }
+
+    @Override
+    public SwapQuote requestQuote(String quoteAsset,
+                                  String baseAsset,
+                                  String quoteQty) {
+        long timestamp = System.currentTimeMillis();
+        return executeSync(binanceApiService.requestQuote(quoteAsset, baseAsset, quoteQty,
+                BinanceApiConstants.DEFAULT_RECEIVING_WINDOW,
+                timestamp));
+    }
+
+    @Override
+    public SwapRecord swap(String quoteAsset, String baseAsset, String quoteQty) {
+        long timestamp = System.currentTimeMillis();
+        return executeSync(binanceApiService.swap(quoteAsset, baseAsset, quoteQty,
+                BinanceApiConstants.DEFAULT_RECEIVING_WINDOW,
+                timestamp));
+    }
+
+    @Override
+    public SwapHistory getSwapHistory(String swapId) {
+        long timestamp = System.currentTimeMillis();
+        List<SwapHistory> history = executeSync(binanceApiService.getSwapHistory(swapId,
+                BinanceApiConstants.DEFAULT_RECEIVING_WINDOW,
+                timestamp));
+        if (history != null && !history.isEmpty()) {
+            return history.get(0);
+        }
+        return null;
     }
 }

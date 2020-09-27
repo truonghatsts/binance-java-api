@@ -2,9 +2,6 @@ package com.binance.api.client.domain.account;
 
 import java.util.List;
 
-/**
- * @author Fenix truonghatsts@gmail.com
- */
 public class Pool {
 
     private String poolId;

@@ -1,8 +1,5 @@
 package com.binance.api.client.domain.account;
 
-/**
- * @author Fenix truonghatsts@gmail.com
- */
 public class LiquidityOperationRecord {
 
     private String operationId;

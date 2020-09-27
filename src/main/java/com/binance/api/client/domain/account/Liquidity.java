@@ -2,9 +2,6 @@ package com.binance.api.client.domain.account;
 
 import java.util.Map;
 
-/**
- * @author Fenix truonghatsts@gmail.com
- */
 public class Liquidity {
 
     private String poolId;

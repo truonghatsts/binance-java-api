@@ -1,8 +1,8 @@
 package com.binance.api.client.domain;
 
-/**
- * @author Fenix truonghatsts@gmail.com
- */
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public enum RemoveType {
     SINGLE, COMBINATION
 }
