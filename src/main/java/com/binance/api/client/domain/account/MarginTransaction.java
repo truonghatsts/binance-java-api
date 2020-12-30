@@ -1,8 +1,6 @@
 package com.binance.api.client.domain.account;
 
-import com.binance.api.client.constant.BinanceApiConstants;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
  * MarginTransaction information.
@@ -10,6 +8,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 @JsonIgnoreProperties
 public class MarginTransaction {
 
+  private String clientTag;
   private String tranId;
 
   public String getTranId() {
@@ -20,10 +19,19 @@ public class MarginTransaction {
     this.tranId = tranId;
   }
 
+  public String getClientTag() {
+    return clientTag;
+  }
+
+  public void setClientTag(String clientTag) {
+    this.clientTag = clientTag;
+  }
+
   @Override
   public String toString() {
-    return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
-        .append("transactionId", tranId)
-        .toString();
+    return "MarginTransaction{" +
+            "clientTag='" + clientTag + '\'' +
+            ", tranId='" + tranId + '\'' +
+            '}';
   }
 }
