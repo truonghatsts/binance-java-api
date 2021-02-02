@@ -2,10 +2,7 @@ package com.binance.api.client;
 
 import com.binance.api.client.domain.TransferType;
 import com.binance.api.client.domain.account.*;
-import com.binance.api.client.domain.account.request.CancelOrderRequest;
-import com.binance.api.client.domain.account.request.CancelOrderResponse;
-import com.binance.api.client.domain.account.request.OrderRequest;
-import com.binance.api.client.domain.account.request.OrderStatusRequest;
+import com.binance.api.client.domain.account.request.*;
 
 import java.util.List;
 
@@ -14,6 +11,13 @@ public interface BinanceApiMarginRestClient {
      * Get current margin account information using default parameters.
      */
     MarginAccount getAccount();
+
+    /**
+     * Get all orders on margin account.
+     *
+     * @param orderRequest order request parameters
+     */
+    List<Order> getAllOrders(AllOrdersRequest orderRequest);
 
     /**
      * Get all open orders on margin account for a symbol.
