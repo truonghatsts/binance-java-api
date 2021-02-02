@@ -229,6 +229,11 @@ public interface BinanceApiService {
     @PUT("/sapi/v1/userDataStream")
     Call<Void> keepAliveMarginUserDataStream(@Query("listenKey") String listenKey);
 
+    @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_SIGNED_HEADER)
+    @GET("/sapi/v1/margin/allOrders")
+    Call<List<Order>> getAllMarginOrders(@Query("symbol") String symbol, @Query("orderId") Long orderId,
+                                   @Query("limit") Integer limit, @Query("recvWindow") Long recvWindow, @Query("timestamp") Long timestamp);
+
     // Binance Liquidity Swap Pool endpoints
 
     @Headers(BinanceApiConstants.ENDPOINT_SECURITY_TYPE_APIKEY_HEADER)
