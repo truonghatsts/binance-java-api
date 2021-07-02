@@ -1,25 +1,13 @@
 package com.binance.api.client.domain.account;
 
-import com.binance.api.client.constant.BinanceApiConstants;
 import com.binance.api.client.domain.OrderSide;
 import com.binance.api.client.domain.OrderStatus;
 import com.binance.api.client.domain.OrderType;
 import com.binance.api.client.domain.TimeInForce;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-/**
- * Response returned when placing a new order on the system.
- *
- * @see NewOrder for the request
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MarginNewOrderResponse {
+public class OrderReport {
 
     /**
      * Order symbol.
@@ -31,11 +19,17 @@ public class MarginNewOrderResponse {
      */
     private Long orderId;
 
+    private Long orderListId;
+
     /**
      * This will be either a generated one, or the newClientOrderId parameter
      * which was passed when creating the new order.
      */
     private String clientOrderId;
+
+    private String origClientOrderId;
+
+    private Long transactTime;
 
     private String price;
 
@@ -51,19 +45,9 @@ public class MarginNewOrderResponse {
 
     private OrderType type;
 
-    private String marginBuyBorrowAmount;
-
-    private String marginBuyBorrowAsset;
-
     private OrderSide side;
 
-    // @JsonSetter(nulls = Nulls.AS_EMPTY)
-    private List<Trade> fills;
-
-    /**
-     * Transact time for this order.
-     */
-    private Long transactTime;
+    private String stopPrice;
 
     public String getSymbol() {
         return symbol;
@@ -81,12 +65,28 @@ public class MarginNewOrderResponse {
         this.orderId = orderId;
     }
 
+    public Long getOrderListId() {
+        return orderListId;
+    }
+
+    public void setOrderListId(Long orderListId) {
+        this.orderListId = orderListId;
+    }
+
     public String getClientOrderId() {
         return clientOrderId;
     }
 
     public void setClientOrderId(String clientOrderId) {
         this.clientOrderId = clientOrderId;
+    }
+
+    public String getOrigClientOrderId() {
+        return origClientOrderId;
+    }
+
+    public void setOrigClientOrderId(String origClientOrderId) {
+        this.origClientOrderId = origClientOrderId;
     }
 
     public Long getTransactTime() {
@@ -153,22 +153,6 @@ public class MarginNewOrderResponse {
         this.type = type;
     }
 
-    public String getMarginBuyBorrowAmount() {
-        return marginBuyBorrowAmount;
-    }
-
-    public void setMarginBuyBorrowAmount(String marginBuyBorrowAmount) {
-        this.marginBuyBorrowAmount = marginBuyBorrowAmount;
-    }
-
-    public String getMarginBuyBorrowAsset() {
-        return marginBuyBorrowAsset;
-    }
-
-    public void setMarginBuyBorrowAsset(String marginBuyBorrowAsset) {
-        this.marginBuyBorrowAsset = marginBuyBorrowAsset;
-    }
-
     public OrderSide getSide() {
         return side;
     }
@@ -177,34 +161,12 @@ public class MarginNewOrderResponse {
         this.side = side;
     }
 
-    public List<Trade> getFills() {
-        return fills;
+    public String getStopPrice() {
+        return stopPrice;
     }
 
-    public void setFills(List<Trade> fills) {
-        this.fills = fills;
+    public void setStopPrice(String stopPrice) {
+        this.stopPrice = stopPrice;
     }
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
-                .append("symbol", symbol)
-                .append("orderId", orderId)
-                .append("clientOrderId", clientOrderId)
-                .append("transactTime", transactTime)
-                .append("price", price)
-                .append("origQty", origQty)
-                .append("executedQty", executedQty)
-                .append("status", status)
-                .append("timeInForce", timeInForce)
-                .append("type", type)
-                .append("marginBuyBorrowAmount", marginBuyBorrowAmount)
-                .append("marginBuyBorrowAsset", marginBuyBorrowAsset)
-                .append("side", side)
-                .append("fills", Optional.ofNullable(fills).orElse(Collections.emptyList())
-                        .stream()
-                        .map(Object::toString)
-                        .collect(Collectors.joining(", ")))
-                .toString();
-    }
 }
